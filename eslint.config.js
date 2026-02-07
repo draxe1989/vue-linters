@@ -25,6 +25,17 @@ export default tseslint.config(
     },
     rules: {
       'no-useless-assignment': 'off',
+      'vue/max-attributes-per-line': [
+        'error',
+        {
+          singleline: {
+            max: 3, // Если в одну строку, то максимум 3
+          },
+          multiline: {
+            max: 1, // Если уже перенесено, то по 1 на строку
+          },
+        },
+      ],
     },
   },
 
