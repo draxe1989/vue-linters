@@ -1,22 +1,39 @@
 import http from 'http'
-import url from 'url'
+import routes from './data/index.ts'
+
+const host = 'http://localhost'
+const port = 80
 
 const server = http.createServer((req, res) => {
   try {
-    const pathname = url.parse(req.url).pathname
-    const method = req.method
+    const method = req.method || 'GET'
+    const url = new URL(host + ':' + port + req.url)
 
-    console.log(pathname, method)
+    const status = url.searchParams.get('_status') || '200'
 
-    res.writeHead(200, { 'Content-Type': 'text/plain' })
-    res.end(pathname)
+    console.log(url)
+
+    const result = Object.entries(routes).find(([key]) => {
+      const reg = new RegExp(`^${key}$`)
+      return reg.test(url.pathname.slice(1))
+    })
+
+    if (result) {
+      res.writeHead(+status)
+      res.end(result?.[1]?.[method]?.[status])
+    } else {
+      res.writeHead(404, { 'Content-Type': 'text/plain' })
+      res.end('404_not_found')
+    }
   } catch (error) {
-    console.log(error)
-    res.writeHead(500, { 'Content-Type': 'text/plain' })
-    res.end('error')
+    res.writeHead(500)
+    res.end(
+      '500_internal_server_error_' +
+        JSON.stringify((error as { message: string }).message),
+    )
   }
 })
 
-server.listen(3000, () => {
-  console.log('Server is running on port 3000')
+server.listen(port, () => {
+  console.log('Server is running on port ' + port)
 })

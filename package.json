@@ -12,7 +12,8 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write \"src/**/*.{js,ts,vue}\"",
     "type-check": "vue-tsc --noEmit",
-    "prepare": "husky"
+    "prepare": "husky",
+    "all": "concurrently \"npx vite\" \"npm run test-server\""
   },
   "lint-staged": {
     "*.{js,ts,vue}": [
@@ -28,9 +29,10 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@types/node": "^24.10.1",
+    "@types/node": "^24.10.12",
     "@vitejs/plugin-vue": "^6.0.1",
     "@vue/tsconfig": "^0.8.1",
+    "concurrently": "^9.2.1",
     "eslint": "^10.0.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-vue": "^10.7.0",
@@ -38,6 +40,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
     "nodemon": "^3.1.11",
+    "npm-run-all": "^4.1.5",
     "prettier": "^3.8.1",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.54.0",

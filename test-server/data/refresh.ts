@@ -1,3 +1,7 @@
 export default {
-  status_200: '{"status": "ok"}',
+  GET: {
+    '200': 'ok',
+    '400': 'bad_request',
+    '401': 'unauthorized',
+  },
 }
