@@ -1,7 +1,10 @@
 <script setup lang="ts">
-  import HelloWorld from './components/HelloWorld.vue'
+  import { useThemeStore } from '@/store/store'
+  import { RouterView } from 'vue-router'
+
+  useThemeStore()
 </script>
 
 <template>
-  <HelloWorld />
+  <RouterView />
 </template>
